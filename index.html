@@ -35,9 +35,7 @@ body{font-family:-apple-system,'Microsoft YaHei','PingFang SC',sans-serif;backgr
 .ms-opt .ms-val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ms-opt.highlight{background:rgba(233,69,96,.25)}
 .ms-opt-all{border-bottom:1px solid #2a2a3e;color:#e94560;font-weight:600}
-.ms-opt .ms-hotkey{font-size:9px;color:#556;margin-left:4px;flex-shrink:0}
 .ms-status{font-size:10px;color:#667;padding:3px 10px;border-top:1px solid #2a2a3e;text-align:center}
-.ms-status span{color:#e94560}
 
 /* ===== File Bar ===== */
 .file-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
@@ -120,6 +118,16 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
 @keyframes spin{to{transform:rotate(360deg)}}
 .err-msg{text-align:center;padding:40px;color:#e94560;background:#fff;border-radius:12px;margin-bottom:14px}
 
+/* ===== Filter bar elements ===== */
+.fbar .fg{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.05);padding:4px 10px 4px 6px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.fbar .fg label{font-size:11px;color:#8899aa;white-space:nowrap;font-weight:500}
+.fbar .btn{padding:5px 20px;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:inline-block;line-height:1.4;vertical-align:middle;box-sizing:border-box}
+.fbar .srch{background:#e94560;color:#fff}.fbar .srch:hover{background:#d63850;transform:translateY(-1px)}
+.fbar .clr{background:rgba(255,255,255,.08);color:#ddd;border:1px solid rgba(255,255,255,.12);height:30px;line-height:18px;padding:5px 16px}.fbar .clr:hover{background:rgba(255,255,255,.15);color:#fff}
+.fbar input.fbar-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:5px 8px;border-radius:5px;font-size:12px;outline:none;height:30px;box-sizing:border-box}
+.fbar input.fbar-input:focus{border-color:#e94560}
+.fbar input.fbar-input::placeholder{color:#667}
+
 @media(max-width:1200px){.kpi1{grid-template-columns:repeat(3,1fr)}.kpi2{grid-template-columns:repeat(4,1fr)}.warn-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.kpi1{grid-template-columns:repeat(2,1fr)}.kpi2{grid-template-columns:repeat(2,1fr)}.fbar .fg{width:100%}.fbar select,.fbar input{min-width:0;flex:1}.ms-wrap{width:100%}.ms-trigger{max-width:100%}}
 </style>
@@ -174,7 +182,7 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
 
     <!-- 业务组警示 分两段 -->
     <div class="sec">
-      <div class="shd"><h2>业务组警示</h2><span style="font-size:11px;color:#999">按 ACOS 区间分列</span></div>
+      <div class="shd"><h2>业务组警示</h2><span style="font-size:11px;color:#999">按行级 ACOS 区间分别聚合</span></div>
       <div class="warn-grid">
         <div class="warn-block">
           <div class="warn-header" style="background:#fff3e0;color:#e65100;border-bottom:2px solid #ff9800">ACOS &gt;50% 且 ≤100%</div>
@@ -189,7 +197,7 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
 
     <!-- 业务负责人警示 分两段 -->
     <div class="sec">
-      <div class="shd"><h2>业务负责人警示</h2><span style="font-size:11px;color:#999">按 ACOS 区间分列</span></div>
+      <div class="shd"><h2>业务负责人警示</h2><span style="font-size:11px;color:#999">按行级 ACOS 区间分别聚合</span></div>
       <div class="warn-grid">
         <div class="warn-block">
           <div class="warn-header" style="background:#fff3e0;color:#e65100;border-bottom:2px solid #ff9800">ACOS &gt;50% 且 ≤100%</div>
@@ -288,12 +296,11 @@ function renderFileDropdown(){
     </div>`
   })
   container.innerHTML=html
-  const label=document.getElementById('fileLabel')
-  label.textContent=checkedFiles.size===0?'未选择文件':`已选 ${checkedFiles.size}/${fileNames.length}`
+  document.getElementById('fileLabel').textContent=checkedFiles.size===0?'未选择文件':`已选 ${checkedFiles.size}/${fileNames.length}`
 }
 
 // ============================================================
-// UI Event Helper (to avoid inline onclick scope issues)
+// UI Event Helper
 // ============================================================
 const UI={
   toggleFileDrop(){
@@ -301,17 +308,14 @@ const UI={
     document.getElementById('fileSelector').querySelector('.ms-trigger').classList.toggle('open')
   },
   fileToggleAll(){
-    if(checkedFiles.size===fileNames.length) checkedFiles=new Set()
-    else checkedFiles=new Set(fileNames)
+    checkedFiles=checkedFiles.size===fileNames.length?new Set():new Set(fileNames)
     renderFileDropdown()
   },
   fileToggle(name){
-    if(checkedFiles.has(name)) checkedFiles.delete(name)
-    else checkedFiles.add(name)
+    if(checkedFiles.has(name)) checkedFiles.delete(name); else checkedFiles.add(name)
     renderFileDropdown()
   },
   toggleDrop(dropEl,triggerEl){
-    // Close all other filter drops
     document.querySelectorAll('.filter-drop').forEach(d=>{if(d!==dropEl)d.classList.remove('open')})
     document.querySelectorAll('.filter-trigger').forEach(t=>{if(t!==triggerEl)t.classList.remove('open')})
     dropEl.classList.toggle('open')
@@ -348,8 +352,7 @@ async function refreshData(){
       const ws=wb.Sheets[wb.SheetNames[0]]
       const rows=XLSX.utils.sheet_to_json(ws,{header:1})
       for(let r=1;r<rows.length;r++){
-        const row=rows[r]
-        if(!row||!row.length) continue
+        const row=rows[r];if(!row||!row.length) continue
         const status=String(row[6]||'').trim()
         const store=String(row[12]||'').trim()
         const group=String(row[2]||'').trim()
@@ -407,7 +410,7 @@ async function refreshData(){
 }
 
 // ============================================================
-// Advanced Multi-Select Filter with CTRL support
+// Advanced Multi-Select Filter
 // ============================================================
 const filterStates={}
 
@@ -417,7 +420,7 @@ function initFilters(){
   bar.innerHTML=''
   filterLabels.forEach((label,i)=>{
     const values=D.filters[label]||[]
-    filterStates[label]={selected:new Set(values),search:'',allValues:values,ctrlMode:false}
+    filterStates[label]={selected:new Set(values),search:'',allValues:values}
     bar.innerHTML+=`<div class="fg ms-wrap filter-${i}" data-filter="${label}">
       <label>${label}</label><div class="ms-trigger filter-trigger" onclick="FilterUI.toggle(${i},this)">
         <span class="ms-label" id="fl-${i}">全部</span><span class="ms-arrow">▾</span>
@@ -425,7 +428,8 @@ function initFilters(){
       <div class="ms-drop filter-drop" id="fd-${i}"></div>
     </div>`
   })
-  bar.innerHTML+=`<div class="fg"><label>广告活动</label><input id="fSearch" placeholder="搜索广告活动..." style="min-width:120px" oninput="apply()"></div>`
+  // 搜索框 and 清除按钮 — use fbar-input class for consistent styling
+  bar.innerHTML+=`<div class="fg"><label>广告活动</label><input id="fSearch" class="fbar-input" placeholder="搜索广告活动..." style="min-width:120px" oninput="apply()"></div>`
   bar.innerHTML+=`<button class="btn clr" onclick="clearFilters()">✕ 清除</button>`
   filterLabels.forEach((label,i)=>{renderFilterDrop(label,i)})
 }
@@ -452,45 +456,28 @@ function renderFilterDrop(label,idx){
 }
 
 const FilterUI={
-  toggle(idx,el){
-    const drop=document.getElementById('fd-'+idx)
-    UI.toggleDrop(drop,el)
-  },
-  search(label,idx,val){
-    filterStates[label].search=val
-    renderFilterDrop(label,idx)
-  },
+  toggle(idx,el){UI.toggleDrop(document.getElementById('fd-'+idx),el)},
+  search(label,idx,val){filterStates[label].search=val;renderFilterDrop(label,idx)},
   toggleAll(label,idx){
     const st=filterStates[label]
-    if(st.selected.size===st.allValues.length) st.selected=new Set()
-    else st.selected=new Set(st.allValues)
-    renderFilterDrop(label,idx)
-    apply()
+    st.selected=st.selected.size===st.allValues.length?new Set():new Set(st.allValues)
+    renderFilterDrop(label,idx);apply()
   },
   click(e,label,idx,val){
     e.preventDefault()
     const st=filterStates[label]
     if(e.ctrlKey||e.metaKey){
-      // CTRL多选: toggle this item
-      if(st.selected.has(val)) st.selected.delete(val)
-      else st.selected.add(val)
+      if(st.selected.has(val)) st.selected.delete(val); else st.selected.add(val)
     }else{
-      // 普通点击: 单选此项目
-      if(st.selected.size===1&&st.selected.has(val)){
-        // 点已选中的唯一项 → 全部选中（恢复全选）
-        st.selected=new Set(st.allValues)
-      }else{
-        st.selected=new Set([val])
-      }
+      if(st.selected.size===1&&st.selected.has(val)) st.selected=new Set(st.allValues)
+      else st.selected=new Set([val])
     }
-    renderFilterDrop(label,idx)
-    apply()
+    renderFilterDrop(label,idx);apply()
   }
 }
 
 function updateFilterLabel(label,idx){
-  const st=filterStates[label]
-  const el=document.getElementById('fl-'+idx)
+  const st=filterStates[label];const el=document.getElementById('fl-'+idx)
   if(st.selected.size===0) el.textContent='(无)'
   else if(st.selected.size===st.allValues.length) el.textContent='全部'
   else if(st.selected.size<=3) el.textContent=Array.from(st.selected).join(', ')
@@ -498,23 +485,18 @@ function updateFilterLabel(label,idx){
 }
 
 function clearFilters(){
-  const filterLabels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
-  filterLabels.forEach((label,i)=>{
-    filterStates[label].selected=new Set(filterStates[label].allValues)
-    filterStates[label].search=''
-    renderFilterDrop(label,i)
-  })
-  document.getElementById('fSearch').value=''
+  const labels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
+  labels.forEach((l,i)=>{filterStates[l].selected=new Set(filterStates[l].allValues);filterStates[l].search='';renderFilterDrop(l,i)})
+  const s=document.getElementById('fSearch');if(s)s.value=''
   apply()
 }
 
-// Close dropdowns on outside click
 document.addEventListener('click',function(e){
   if(!e.target.closest('.ms-wrap')){
-    document.querySelectorAll('.filter-drop').forEach(d=>d.classList.remove('open'))
+    document.querySelectorAll('.filter-drop,.fileDrop').forEach(d=>d.classList.remove('open'))
     document.querySelectorAll('.filter-trigger').forEach(t=>t.classList.remove('open'))
-    document.getElementById('fileDrop').classList.remove('open')
-    document.getElementById('fileSelector').querySelector('.ms-trigger')?.classList.remove('open')
+    document.getElementById('fileDrop')?.classList.remove('open')
+    document.getElementById('fileSelector')?.querySelector('.ms-trigger')?.classList.remove('open')
   }
 })
 
@@ -524,7 +506,8 @@ document.addEventListener('click',function(e){
 function getFilteredData(){
   if(!D||!D.raw) return[]
   const filterLabels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
-  const searchVal=document.getElementById('fSearch')?.value?.toLowerCase().trim()||''
+  const s=document.getElementById('fSearch')
+  const searchVal=s?s.value.toLowerCase().trim():''
   return D.raw.filter(r=>{
     for(let i=0;i<6;i++){
       const st=filterStates[filterLabels[i]]
@@ -539,7 +522,7 @@ function getFilteredData(){
 function apply(){renderAll()}
 
 // ============================================================
-// Aggregate helpers
+// Aggregate helpers (operates on already-filtered data)
 // ============================================================
 function aggregateBy(data,gi){
   const groups={}
@@ -583,42 +566,34 @@ function renderAll(){
   const filtered=getFilteredData()
   if(filtered.length===0){
     document.getElementById('kpi1').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#999">筛选结果为空</div>'
-    document.getElementById('kpi2').innerHTML=''
-    document.getElementById('acosArea').innerHTML=''
+    document.getElementById('kpi2').innerHTML='';document.getElementById('acosArea').innerHTML=''
     document.getElementById('gw_mid').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
-    document.getElementById('gw_high').innerHTML=''
+    document.getElementById('gw_high').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
     document.getElementById('ow_mid').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
-    document.getElementById('ow_high').innerHTML=''
+    document.getElementById('ow_high').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
     ;['tbl_s','tbl_a','tbl_c','tbl_m','tbl_fd'].forEach(id=>{
-      document.getElementById(id).innerHTML='<tr><td style="text-align:center;color:#999;padding:16px;">无数据</td></tr>'
+      document.getElementById(id).innerHTML='<tr><td colspan="99" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>'
     });return
   }
 
   const ts=filtered.reduce((s,r)=>s+r[7],0)||1
   const camps=new Set()
   let sp=0,im=0,cl=0,sq=0,sa=0,pq=0,tq=0
-  filtered.forEach(r=>{
-    camps.add(r[6]);sp+=r[7];im+=r[8];cl+=r[9];sq+=r[10];sa+=r[11];pq+=r[13];tq+=r[14]
-  })
+  filtered.forEach(r=>{camps.add(r[6]);sp+=r[7];im+=r[8];cl+=r[9];sq+=r[10];sa+=r[11];pq+=r[13];tq+=r[14]})
   const c=camps.size
   const cpc=cl>0?sp/cl:0,ctr=im>0?cl/im:0,cvr=cl>0?sq/cl:0,cpo=sq>0?sp/sq:0,acos=sa>0?sp/sa:0,roas=sp>0?sa/sp:0,dr=tq>0?pq/tq:0
 
   // KPI Row 1: 6
   document.getElementById('kpi1').innerHTML=[
-    {l:'广告活动数',v:FN(c),cl:'bb'},
-    {l:'总花费',v:'$'+F(sp),cl:'br'},
-    {l:'展示量',v:FN(im),cl:'bb'},
-    {l:'点击量',v:FN(cl),cl:'bb'},
-    {l:'转化量',v:FN(sq),cl:'bg'},
-    {l:'销售额',v:'$'+F(sa),cl:'bg'}
+    {l:'广告活动数',v:FN(c),cl:'bb'},{l:'总花费',v:'$'+F(sp),cl:'br'},
+    {l:'展示量',v:FN(im),cl:'bb'},{l:'点击量',v:FN(cl),cl:'bb'},
+    {l:'转化量',v:FN(sq),cl:'bg'},{l:'销售额',v:'$'+F(sa),cl:'bg'}
   ].map(k=>`<div class="kc ${k.cl}"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('')
 
   // KPI Row 2: 7
   document.getElementById('kpi2').innerHTML=[
-    {l:'$CPC',v:'$'+F(cpc,4),cl:'bt'},
-    {l:'CTR%',v:FP(ctr),cl:'bt'},
-    {l:'CVR%',v:FP(cvr),cl:'bt'},
-    {l:'$CPO',v:'$'+F(cpo),cl:'bt'},
+    {l:'$CPC',v:'$'+F(cpc,4),cl:'bt'},{l:'CTR%',v:FP(ctr),cl:'bt'},
+    {l:'CVR%',v:FP(cvr),cl:'bt'},{l:'$CPO',v:'$'+F(cpo),cl:'bt'},
     {l:'ACOS%',v:FP(acos),cl:acos>0.5?'br':acos>0.3?'bo':'bg'},
     {l:'ROAS',v:F(roas),cl:roas<2?'br':'bg'},
     {l:'直购率%',v:FP(dr),cl:'bp'}
@@ -627,19 +602,23 @@ function renderAll(){
   // ===== ACOS分段预警 =====
   renderACOS(filtered,ts)
 
-  // ===== 业务组警示 (两段) =====
-  const gwAgg=aggregateBy(filtered,2)
-  const tsFiltered=filtered.reduce((s,r)=>s+r[7],0)||1
-  // 给 gwAgg 加 spPct
-  gwAgg.forEach(g=>g.spPct=tsFiltered>0?g.sp/tsFiltered*100:0)
-  renderWarnTable('gw_mid',gwAgg.filter(x=>x.acos>0.50&&x.acos<=1),'mid')
-  renderWarnTable('gw_high',gwAgg.filter(x=>x.acos>1),'high')
+  // ===== 业务组警示 — 先根据行级 ACOS 过滤，再聚合 =====
+  const gwMidRows=filtered.filter(r=>r[12]>0.50&&r[12]<=1)
+  const gwHighRows=filtered.filter(r=>r[12]>1)
+  const gwMidAgg=aggregateBy(gwMidRows,2)
+  const gwHighAgg=aggregateBy(gwHighRows,2)
+  gwMidAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  gwHighAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  renderWarnTable('gw_mid',gwMidAgg)
+  renderWarnTable('gw_high',gwHighAgg)
 
-  // ===== 业务负责人警示 (两段) =====
-  const owAgg=aggregateBy(filtered,3)
-  owAgg.forEach(g=>g.spPct=tsFiltered>0?g.sp/tsFiltered*100:0)
-  renderWarnTable('ow_mid',owAgg.filter(x=>x.acos>0.50&&x.acos<=1),'mid')
-  renderWarnTable('ow_high',owAgg.filter(x=>x.acos>1),'high')
+  // ===== 业务负责人警示 — 同理 =====
+  const owMidAgg=aggregateBy(gwMidRows,3)
+  const owHighAgg=aggregateBy(gwHighRows,3)
+  owMidAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  owHighAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  renderWarnTable('ow_mid',owMidAgg)
+  renderWarnTable('ow_high',owHighAgg)
 
   // ===== 明细分析 =====
   renderDet('tbl_s',aggregateBy(filtered,1),['店铺','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
@@ -685,8 +664,8 @@ function renderACOS(data,ts){
     const tag=tagMap[clr]||'g'
 
     const wrap=document.createElement('div');wrap.className='as'
-    let summaryHTML=
-      `<div class="t"><span>${seg.lbl}</span><span style="font-size:12px;font-weight:400;color:#888">${seg.sub}</span><span class="wt ${tag}">${camps.size} CAM · $${F(sp)}</span></div>`+
+    const summaryHTML=
+      `<div class="t"><span>${seg.lbl}</span><span style="font-size:12px;font-weight:400;color:#888;margin-left:4px">${seg.sub}</span><span class="wt ${tag}" style="margin-left:8px">${camps.size} CAM · $${F(sp)}</span></div>`+
       `<div class="st">`+
       `<div class="si"><div class="sl">占比</div><div class="sv">${F(pct)}%</div></div>`+
       `<div class="si"><div class="sl">点击量</div><div class="sv">${FNn(cl)}</div></div>`+
@@ -725,18 +704,16 @@ function renderACOS(data,ts){
 }
 
 // ============================================================
-// Warning Table (业务组/负责人 分段)
+// Warning Table
 // ============================================================
-function renderWarnTable(cid,data,type){
+function renderWarnTable(cid,data){
   const con=document.getElementById(cid);con.innerHTML=''
   if(!data||!data.length){
-    const msg=type==='mid'?'全部 ACOS≤50% ✓':'全部 ACOS≤100% ✓'
-    con.innerHTML=`<div style="padding:12px;text-align:center;color:#999">${msg}</div>`;return
+    con.innerHTML=`<div style="padding:12px;text-align:center;color:#999">全部合格 ✓</div>`;return
   }
   const maxSp=Math.max(...data.map(x=>x.sp),1)
   let html='<table><thead><tr><th>名称</th><th class="num">活动数</th><th class="num">花费</th><th class="num">占总花费</th><th class="num">点击量</th><th class="num">$CPC</th><th class="num">CTR%</th><th class="num">CVR%</th><th class="num">$CPO</th><th class="num">ACOS%</th><th class="num">ROAS</th></tr></thead><tbody>'
   data.forEach(r=>{
-    const acosClr=acosColor(r.acos)
     const pctColor=r.spPct>20?'r':r.spPct>10?'o':'b'
     html+=`<tr class="${r.acos>1?'row-super':r.acos>0.7?'row-high':''}">
       <td style="font-weight:600">${r.name}</td>
@@ -748,7 +725,7 @@ function renderWarnTable(cid,data,type){
       <td class="num" style="color:${goodColor(r.ctr,0,Math.max(...data.map(x=>x.ctr),0.01))}">${FP(r.ctr)}</td>
       <td class="num" style="color:${goodColor(r.cvr,0,Math.max(...data.map(x=>x.cvr),0.01))}">${FP(r.cvr)}</td>
       <td class="num">$${F(r.cpo)}</td>
-      <td class="num" style="font-weight:700;color:${acosClr}">${FP(r.acos)}</td>
+      <td class="num" style="font-weight:700;color:${acosColor(r.acos)}">${FP(r.acos)}</td>
       <td class="num" style="font-weight:700;color:${acosColor(1/Math.max(r.roas,0.01))}">${F(r.roas)}</td>
     </tr>`
   })
@@ -763,9 +740,9 @@ function renderDet(id,data,headers,fields){
   if(!data||!data.length){tbl.innerHTML='<tr><td colspan="'+headers.length+'" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>';return}
   const sumSp=data.reduce((s,r)=>s+r.sp,0)
   const rowsWithPct=data.map(r=>({...r,spPct:sumSp>0?r.sp/sumSp*100:0}))
-  let h='<thead><tr>'+headers.map((h,i)=>{
+  let h='<thead><tr>'+headers.map((h2,i)=>{
     const numFields=['cam','sp','im','cl','sq','cpc','ctr','cvr','cpo','acos','roas','dr']
-    return '<th'+(numFields.includes(fields[i])?' class="num"':'')+'>'+h+'</th>'
+    return '<th'+(numFields.includes(fields[i])?' class="num"':'')+'>'+h2+'</th>'
   }).join('')+'</tr></thead><tbody>'
   const fmts={cam:FNn,sp:v=>'$'+F(v),im:FNn,cl:FNn,sq:FNn,cpc:v=>'$'+F(v,4),ctr:FPn,cvr:FPn,cpo:v=>'$'+F(v),acos:FPn,roas:F,dr:FPn,spPct:v=>F(v)+'%'}
   const maxVals={};fields.forEach(f=>{
@@ -797,9 +774,8 @@ function renderDet(id,data,headers,fields){
 function renderFullData(data){
   const tbl=document.getElementById('tbl_fd')
   const sorted=[...data].sort((a,b)=>b[7]-a[7]).slice(0,500)
-  if(!sorted.length){tbl.innerHTML='<tr><td style="text-align:center;color:#999;padding:16px;">无数据</td></tr>';return}
+  if(!sorted.length){tbl.innerHTML='<tr><td colspan="16" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>';return}
   const headers=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型','广告活动','花费','展示量','点击量','转化量','销售额','ACOS%','推广商品销量','总销量','直购率%']
-  const fields=['f0','f1','f2','f3','f4','f5','f6','sp','im','cl','sq','sa','acos','pq','tq','dr']
   let html='<thead><tr>'+headers.map((h,i)=>'<th'+(i>=7?' class="num"':'')+'>'+h+'</th>').join('')+'</tr></thead><tbody>'
   sorted.forEach((r,i)=>{
     const dr=r[14]>0?r[13]/r[14]:0
