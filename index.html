@@ -8,128 +8,126 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'Microsoft YaHei','PingFang SC',sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:14px}
-.header{position:sticky;top:0;z-index:999;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:14px 20px 12px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
-.htop{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.htop h1{font-size:20px;font-weight:700;letter-spacing:.5px}.htop h1 .hl{color:#e94560}
-.htop .db{background:rgba(233,69,96,.15);border:1px solid #e94560;padding:4px 14px;border-radius:20px;font-size:13px;color:#ff6b81;white-space:nowrap}
-.fbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.header{position:sticky;top:0;z-index:999;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:12px 20px 10px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.htop{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.htop h1{font-size:18px;font-weight:700}.htop h1 .hl{color:#e94560}
+.htop .db{background:rgba(233,69,96,.15);border:1px solid #e94560;padding:3px 12px;border-radius:20px;font-size:12px;color:#ff6b81;white-space:nowrap}
+.fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 
-/* ===== Multi-Select Dropdown ===== */
-.ms-wrap{position:relative;display:inline-block;min-width:110px;vertical-align:middle}
-.ms-trigger{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:5px 8px;border-radius:5px;font-size:12px;cursor:pointer;user-select:none;min-height:30px;white-space:nowrap;max-width:180px;transition:border-color .2s}
+/* ===== Multi-Select ===== */
+.ms-wrap{position:relative;display:inline-block;min-width:100px;vertical-align:middle}
+.ms-trigger{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:4px 7px;border-radius:5px;font-size:11px;cursor:pointer;user-select:none;min-height:28px;white-space:nowrap;max-width:160px;transition:border-color .2s}
 .ms-trigger:hover{border-color:#e94560}
 .ms-trigger .ms-label{overflow:hidden;text-overflow:ellipsis;flex:1;font-size:11px;color:#ccc;white-space:nowrap}
-.ms-trigger .ms-arrow{font-size:9px;color:#888;transition:transform .2s;flex-shrink:0}
+.ms-trigger .ms-arrow{font-size:8px;color:#888;transition:transform .2s;flex-shrink:0}
 .ms-trigger.open .ms-arrow{transform:rotate(180deg)}
-.ms-drop{display:none;position:absolute;top:100%;left:0;z-index:1000;background:#1a1a2e;border:1px solid #334;border-radius:6px;min-width:220px;max-height:340px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5);margin-top:3px}
+.ms-drop{display:none;position:absolute;top:100%;left:0;z-index:1000;background:#1a1a2e;border:1px solid #334;border-radius:6px;min-width:200px;max-height:320px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5);margin-top:2px}
 .ms-drop.open{display:flex;flex-direction:column}
-.ms-search{padding:6px;border-bottom:1px solid #2a2a3e}
-.ms-search input{width:100%;background:#252540;border:1px solid #333;color:#fff;padding:5px 8px;border-radius:4px;font-size:12px;outline:none}
+.ms-search{padding:5px;border-bottom:1px solid #2a2a3e}
+.ms-search input{width:100%;background:#252540;border:1px solid #333;color:#fff;padding:4px 7px;border-radius:4px;font-size:11px;outline:none}
 .ms-search input:focus{border-color:#e94560}
 .ms-options{overflow-y:auto;flex:1;padding:2px 0}
-.ms-opt{display:flex;align-items:center;gap:6px;padding:5px 10px;cursor:pointer;font-size:12px;color:#ddd;transition:background .1s}
+.ms-opt{display:flex;align-items:center;gap:5px;padding:4px 8px;cursor:pointer;font-size:11px;color:#ddd;transition:background .1s}
 .ms-opt:hover{background:rgba(233,69,96,.15)}
-.ms-opt .ms-cb{width:14px;height:14px;border:2px solid #667;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.ms-opt .ms-cb{width:13px;height:13px;border:2px solid #667;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ms-opt.checked .ms-cb{background:#e94560;border-color:#e94560}
-.ms-opt.checked .ms-cb::after{content:'✓';font-size:10px;color:#fff;font-weight:700}
+.ms-opt.checked .ms-cb::after{content:'✓';font-size:9px;color:#fff;font-weight:700}
 .ms-opt .ms-val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ms-opt.highlight{background:rgba(233,69,96,.25)}
 .ms-opt-all{border-bottom:1px solid #2a2a3e;color:#e94560;font-weight:600}
-.ms-status{font-size:10px;color:#667;padding:3px 10px;border-top:1px solid #2a2a3e;text-align:center}
+.ms-status{font-size:9px;color:#667;padding:2px 8px;border-top:1px solid #2a2a3e;text-align:center}
+.ms-status span{color:#e94560}
 
 /* ===== File Bar ===== */
-.file-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
-.file-bar .btn-folder{background:#4a9eff;color:#fff;padding:5px 16px;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:flex;align-items:center;gap:5px}
+.file-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.file-bar .btn-folder{background:#4a9eff;color:#fff;padding:4px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:flex;align-items:center;gap:4px}
 .file-bar .btn-folder:hover{background:#3a8eef;transform:translateY(-1px)}
-.file-bar .btn-refresh{background:#2ed573;color:#fff;padding:5px 16px;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:flex;align-items:center;gap:5px}
+.file-bar .btn-refresh{background:#2ed573;color:#fff;padding:4px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:flex;align-items:center;gap:4px}
 .file-bar .btn-refresh:hover{background:#26bf65;transform:translateY(-1px)}
 .file-bar .file-status{font-size:11px;color:#8899aa}
 .file-bar .file-status.loaded{color:#2ed573}
 .file-bar .file-status.error{color:#e94560}
-.ms-file .ms-trigger{background:#1a1a2e;border:1px solid #4a9eff;color:#4a9eff;max-width:260px}
-.ms-file .ms-drop{background:#1a1a2e;min-width:220px}
+.ms-file .ms-trigger{background:#1a1a2e;border:1px solid #4a9eff;color:#4a9eff;max-width:240px}
+.ms-file .ms-drop{background:#1a1a2e;min-width:200px}
 .ms-file .ms-opt{color:#aaa}
 .ms-file .ms-opt.checked{color:#fff}
 
-/* ===== KPI ===== */
-.kpi{display:grid;gap:8px;margin-bottom:14px}
+/* ===== KPI — 简约两色方案 ===== */
+.kpi{display:grid;gap:6px;margin-bottom:12px}
 .kpi1{grid-template-columns:repeat(6,1fr)}
 .kpi2{grid-template-columns:repeat(7,1fr)}
-.kc{background:#fff;border-radius:10px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,.05);border-left:4px solid #4a9eff;transition:all .2s}
-.kc:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.kc .l{font-size:10px;color:#888;margin-bottom:3px;font-weight:500}.kc .v{font-size:18px;font-weight:700;font-family:Consolas,monospace}
-.kc.br{border-left-color:#e94560}.kc.bg{border-left-color:#2ed573}.kc.bo{border-left-color:#ffa502}
-.kc.bp{border-left-color:#a55eea}.kc.bb{border-left-color:#4a9eff}.kc.bt{border-left-color:#00d2d3}
-.kc .v.cr{color:#e94560}.kc .v.co{color:#ffa502}.kc .v.cg{color:#2ed573}
+.kc{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:all .2s;overflow:hidden}
+.kc:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(0,0,0,.08)}
+.kc .l{font-size:10px;color:#999;margin-bottom:2px;font-weight:500;letter-spacing:.3px}
+.kc .v{font-size:17px;font-weight:700;font-family:Consolas,monospace;color:#1a1a2e}
+.kc .v.cr{color:#e94560}.kc .v.co{color:#e67e22}.kc .v.cg{color:#27ae60}
 
 /* ===== Section ===== */
-.sec{background:#fff;border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
-.shd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #f0f2f5;flex-wrap:wrap;gap:6px}
-.shd h2{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px}
+.sec{background:#fff;border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.shd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #f0f2f5;flex-wrap:wrap;gap:4px}
+.shd h2{font-size:15px;font-weight:700}
 .tw{overflow-x:auto;border-radius:6px}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{background:#f8f9fa;padding:7px 8px;text-align:left;font-weight:600;color:#555;white-space:nowrap;border-bottom:2px solid #e0e0e0;position:sticky;top:0;font-size:11px}
-td{padding:5px 8px;border-bottom:1px solid #f0f0f0;white-space:nowrap;transition:background .15s}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:#f8f9fa;padding:6px 7px;text-align:left;font-weight:600;color:#666;white-space:nowrap;border-bottom:2px solid #e0e0e0;position:sticky;top:0;font-size:10px}
+td{padding:4px 7px;border-bottom:1px solid #f0f0f0;white-space:nowrap;transition:background .15s}
 tr:hover td{background:#f0f4ff!important}
-.num{text-align:right;font-family:Consolas,'JetBrains Mono',monospace;font-size:12px}
-.bar{display:inline-flex;align-items:center;gap:4px}
-.bar .bg{display:inline-block;width:55px;height:14px;background:#f0f0f0;border-radius:7px;overflow:hidden;vertical-align:middle;flex-shrink:0}
-.bar .bf{height:100%;border-radius:7px;transition:width .5s}
-.bar .bf.g{background:linear-gradient(90deg,#2ed573,#7bed9f)}.bar .bf.o{background:linear-gradient(90deg,#ffa502,#eccc68)}
-.bar .bf.r{background:linear-gradient(90deg,#e94560,#ff6b81)}.bar .bf.p{background:linear-gradient(90deg,#a55eea,#dda0dd)}
-.bar .bf.b{background:linear-gradient(90deg,#4a9eff,#74b9ff)}.bar .pv{font-size:11px;font-weight:500;min-width:40px;text-align:right}
+.num{text-align:right;font-family:Consolas,'JetBrains Mono',monospace;font-size:11px}
+.bar{display:inline-flex;align-items:center;gap:3px}
+.bar .bg{display:inline-block;width:45px;height:12px;background:#f0f0f0;border-radius:6px;overflow:hidden;vertical-align:middle;flex-shrink:0}
+.bar .bf{height:100%;border-radius:6px;transition:width .5s}
+.bar .bf.o{background:linear-gradient(90deg,#ffa502,#eccc68)}
+.bar .bf.r{background:linear-gradient(90deg,#e94560,#ff6b81)}
+.bar .bf.b{background:linear-gradient(90deg,#4a9eff,#74b9ff)}
+.bar .pv{font-size:10px;font-weight:500;min-width:35px;text-align:right;color:#666}
 
 /* ===== ACOS Segments ===== */
-.as{margin-bottom:8px;border:1px solid #e8e8e8;border-radius:8px;overflow:hidden}
-.ah{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;cursor:pointer;user-select:none;transition:all .2s;flex-wrap:wrap;gap:8px}
+.as{margin-bottom:6px;border:1px solid #e8e8e8;border-radius:8px;overflow:hidden}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;cursor:pointer;user-select:none;transition:all .2s;flex-wrap:wrap;gap:6px}
 .ah:hover{filter:brightness(.95)}
-.ah .t{font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
-.ah .st{display:flex;gap:12px;font-size:11px;flex-wrap:wrap}
-.ah .st .si{text-align:right;min-width:55px}
-.ah .st .si .sl{color:#888;font-size:9px;margin-bottom:1px}
-.ah .st .si .sv{font-weight:600;font-size:12px}
-.ab{display:none;padding:10px 14px;background:#fafbfc;border-top:1px solid #e8e8e8;overflow-x:auto}
+.ah .t{font-weight:600;font-size:13px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.ah .st{display:flex;gap:10px;font-size:10px;flex-wrap:wrap}
+.ah .st .si{text-align:right;min-width:48px}
+.ah .st .si .sl{color:#888;font-size:8px;margin-bottom:1px}
+.ah .st .si .sv{font-weight:600;font-size:11px}
+.ab{display:none;padding:8px 12px;background:#fafbfc;border-top:1px solid #e8e8e8;overflow-x:auto}
 .ab.open{display:block}
-.ar{transition:transform .3s;display:inline-block;font-size:12px}.ar.open{transform:rotate(90deg)}
-.wt{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.ar{transition:transform .3s;display:inline-block;font-size:11px}.ar.open{transform:rotate(90deg)}
+.wt{display:inline-block;padding:1px 7px;border-radius:4px;font-size:9px;font-weight:600}
 .wt.g{background:#e8f5e9;color:#2e7d32}.wt.o{background:#fff3e0;color:#e65100}.wt.r{background:#fce4ec;color:#c62828}.wt.p{background:#f3e5f5;color:#6a1b9a}
 
-/* ===== Warning Sub-sections ===== */
-.warn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* ===== Warning Grid ===== */
+.warn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .warn-block{border:1px solid #e8e8e8;border-radius:8px;overflow:hidden}
-.warn-block .warn-header{padding:8px 12px;font-weight:600;font-size:12px;display:flex;align-items:center;gap:6px}
-.warn-block .warn-body{padding:6px 8px}
+.warn-block .warn-header{padding:6px 10px;font-weight:600;font-size:11px;display:flex;align-items:center;gap:4px}
+.warn-block .warn-body{padding:4px 6px}
 
 /* ===== Tabs ===== */
-.tabs{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap}
-.tb{padding:6px 14px;border:1px solid #ddd;background:#f8f9fa;border-radius:6px 6px 0 0;cursor:pointer;font-size:12px;transition:all .2s;color:#666;font-weight:500}
+.tabs{display:flex;gap:2px;margin-bottom:8px;flex-wrap:wrap}
+.tb{padding:5px 12px;border:1px solid #ddd;background:#f8f9fa;border-radius:5px 5px 0 0;cursor:pointer;font-size:11px;transition:all .2s;color:#666;font-weight:500}
 .tb.act{background:#fff;border-bottom-color:#fff;color:#1a1a2e;font-weight:700}
 .tb:hover:not(.act){background:#eef0f5}
 .tp{display:none}.tp.act{display:block}
 tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!important}
 
 /* ===== States ===== */
-.empty-state{text-align:center;padding:60px 20px;color:#999}
-.empty-state .icon{font-size:48px;margin-bottom:16px}
-.empty-state .title{font-size:18px;color:#666;margin-bottom:8px}
-.empty-state .desc{font-size:13px;color:#999;line-height:1.6}
-.loading{text-align:center;padding:40px;color:#e94560;font-size:16px}
-.loading .spinner{display:inline-block;width:24px;height:24px;border:3px solid #f0f0f0;border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
+.empty-state{text-align:center;padding:50px 20px;color:#999}
+.empty-state .icon{font-size:42px;margin-bottom:12px}
+.empty-state .title{font-size:16px;color:#666;margin-bottom:6px}
+.empty-state .desc{font-size:12px;color:#999;line-height:1.6}
+.loading{text-align:center;padding:30px;color:#e94560;font-size:14px}
+.loading .spinner{display:inline-block;width:20px;height:20px;border:3px solid #f0f0f0;border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin-right:6px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.err-msg{text-align:center;padding:40px;color:#e94560;background:#fff;border-radius:12px;margin-bottom:14px}
 
 /* ===== Filter bar elements ===== */
-.fbar .fg{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.05);padding:4px 10px 4px 6px;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
-.fbar .fg label{font-size:11px;color:#8899aa;white-space:nowrap;font-weight:500}
-.fbar .btn{padding:5px 20px;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:inline-block;line-height:1.4;vertical-align:middle;box-sizing:border-box}
-.fbar .srch{background:#e94560;color:#fff}.fbar .srch:hover{background:#d63850;transform:translateY(-1px)}
-.fbar .clr{background:rgba(255,255,255,.08);color:#ddd;border:1px solid rgba(255,255,255,.12);height:30px;line-height:18px;padding:5px 16px}.fbar .clr:hover{background:rgba(255,255,255,.15);color:#fff}
-.fbar input.fbar-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:5px 8px;border-radius:5px;font-size:12px;outline:none;height:30px;box-sizing:border-box}
+.fbar .fg{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.05);padding:3px 8px 3px 5px;border-radius:5px;border:1px solid rgba(255,255,255,.06)}
+.fbar .fg label{font-size:10px;color:#8899aa;white-space:nowrap;font-weight:500}
+.fbar .btn{padding:4px 14px;border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;border:none;transition:all .2s;display:inline-block;vertical-align:middle;height:28px;line-height:20px}
+.fbar .clr{background:rgba(255,255,255,.08);color:#ddd;border:1px solid rgba(255,255,255,.12)}.fbar .clr:hover{background:rgba(255,255,255,.15);color:#fff}
+.fbar input.fbar-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:4px 7px;border-radius:5px;font-size:11px;outline:none;height:28px;box-sizing:border-box}
 .fbar input.fbar-input:focus{border-color:#e94560}
 .fbar input.fbar-input::placeholder{color:#667}
 
 @media(max-width:1200px){.kpi1{grid-template-columns:repeat(3,1fr)}.kpi2{grid-template-columns:repeat(4,1fr)}.warn-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.kpi1{grid-template-columns:repeat(2,1fr)}.kpi2{grid-template-columns:repeat(2,1fr)}.fbar .fg{width:100%}.fbar select,.fbar input{min-width:0;flex:1}.ms-wrap{width:100%}.ms-trigger{max-width:100%}}
+@media(max-width:768px){.kpi1{grid-template-columns:repeat(2,1fr)}.kpi2{grid-template-columns:repeat(2,1fr)}.fbar .fg{width:100%}.ms-wrap{width:100%}.ms-trigger{max-width:100%}}
 </style>
 </head>
 <body>
@@ -147,7 +145,7 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
         <span class="ms-arrow">▾</span>
       </div>
       <div class="ms-drop" id="fileDrop">
-        <div class="ms-options" id="fileOptions"><div style="padding:12px;color:#888;font-size:12px;text-align:center">请先选择文件夹</div></div>
+        <div class="ms-options" id="fileOptions"><div style="padding:10px;color:#888;font-size:11px;text-align:center">请先选择文件夹</div></div>
       </div>
     </div>
     <button class="btn-refresh" onclick="refreshData()">🔄 刷新数据</button>
@@ -158,7 +156,6 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
 </div>
 
 <div class="container">
-  <!-- Empty state -->
   <div class="empty-state" id="emptyState">
     <div class="icon">📊</div>
     <div class="title">选择数据文件开始分析</div>
@@ -169,20 +166,17 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
     </div>
   </div>
 
-  <!-- Dashboard -->
   <div id="dashboardContent" style="display:none">
     <div class="kpi kpi1" id="kpi1"></div>
     <div class="kpi kpi2" id="kpi2"></div>
 
-    <!-- ACOS分段预警 -->
     <div class="sec">
-      <div class="shd"><h2>ACOS 分段预警</h2><span style="font-size:11px;color:#999">点击每段可展开查看CAM详情</span></div>
+      <div class="shd"><h2>ACOS 分段预警</h2><span style="font-size:10px;color:#999">点击每段可展开查看CAM详情</span></div>
       <div id="acosArea"></div>
     </div>
 
-    <!-- 业务组警示 分两段 -->
     <div class="sec">
-      <div class="shd"><h2>业务组警示</h2><span style="font-size:11px;color:#999">按行级 ACOS 区间分别聚合</span></div>
+      <div class="shd"><h2>业务组警示</h2><span style="font-size:10px;color:#999">按行级 ACOS 区间分别聚合</span></div>
       <div class="warn-grid">
         <div class="warn-block">
           <div class="warn-header" style="background:#fff3e0;color:#e65100;border-bottom:2px solid #ff9800">ACOS &gt;50% 且 ≤100%</div>
@@ -195,9 +189,8 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
       </div>
     </div>
 
-    <!-- 业务负责人警示 分两段 -->
     <div class="sec">
-      <div class="shd"><h2>业务负责人警示</h2><span style="font-size:11px;color:#999">按行级 ACOS 区间分别聚合</span></div>
+      <div class="shd"><h2>业务负责人警示</h2><span style="font-size:10px;color:#999">按行级 ACOS 区间分别聚合</span></div>
       <div class="warn-grid">
         <div class="warn-block">
           <div class="warn-header" style="background:#fff3e0;color:#e65100;border-bottom:2px solid #ff9800">ACOS &gt;50% 且 ≤100%</div>
@@ -210,14 +203,13 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
       </div>
     </div>
 
-    <!-- 明细分析 -->
     <div class="sec">
       <div class="shd"><h2>明细分析</h2></div>
       <div class="tabs">
         <button class="tb act" onclick="sw('s',this)">店铺</button>
         <button class="tb" onclick="sw('a',this)">广告类型</button>
         <button class="tb" onclick="sw('c',this)">三级分类</button>
-        <button class="tb" onclick="sw('m',this)">分类×类型 交叉分析</button>
+        <button class="tb" onclick="sw('m',this)">分类×类型</button>
       </div>
       <div id="tp_s" class="tp act"><div class="tw"><table id="tbl_s"></table></div></div>
       <div id="tp_a" class="tp"><div class="tw"><table id="tbl_a"></table></div></div>
@@ -225,9 +217,8 @@ tr.row-super td{background:#fef0f0!important}tr.row-high td{background:#fff8f0!i
       <div id="tp_m" class="tp"><div class="tw"><table id="tbl_m"></table></div></div>
     </div>
 
-    <!-- 全量数据 -->
     <div class="sec">
-      <div class="shd"><h2>全量数据</h2><span style="font-size:11px;color:#999">Top 500 · 按花费降序</span></div>
+      <div class="shd"><h2>全量数据</h2><span style="font-size:10px;color:#999">Top 500 · 按花费降序</span></div>
       <div class="tw"><table id="tbl_fd"></table></div>
     </div>
   </div>
@@ -243,12 +234,12 @@ const FP=v=>{if(!v||v===0)return'0.00%';return(v*100).toFixed(2)+'%'}
 const FPn=v=>{if(!v||v===0)return'0.00%';return(v*100).toFixed(2)}
 const FNn=v=>{if(!v||v===0)return'0';return Number(v).toLocaleString()}
 function acosColor(v){
-  if(v>1)return'#d32f2f';if(v>0.7)return'#e94560';if(v>0.5)return'#ff6348';if(v>0.35)return'#ffa502'
-  if(v>0.15)return'#2ed573';return'#4a9eff'
+  if(v>1)return'#d32f2f';if(v>0.7)return'#e94560';if(v>0.5)return'#ff6348';if(v>0.35)return'#e67e22'
+  return'#27ae60'
 }
 function goodColor(v,min,max){
   const r=max===min?0.5:Math.max(0,Math.min(1,(v-min)/(max-min)))
-  if(r>0.7)return'#2ed573';if(r>0.4)return'#ffa502';return'#e94560'
+  if(r>0.7)return'#27ae60';if(r>0.4)return'#e67e22';return'#e94560'
 }
 
 // ============================================================
@@ -258,6 +249,7 @@ let D=null
 let selectedFiles=[]
 let fileNames=[]
 let checkedFiles=new Set()
+const FIELD_EMPTY='(无)'
 
 // ============================================================
 // File Picker
@@ -273,7 +265,7 @@ function onFolderPicked(e){
   }
   fileNames.sort();selectedFiles.sort((a,b)=>a.name.localeCompare(b.name))
   if(fileNames.length===0){
-    document.getElementById('fileStatus').textContent='未找到匹配的报表文件'
+    document.getElementById('fileStatus').textContent='未找到匹配的报表文件（需要 YYYYMMDD_YYYMMDD.xlsx 格式）'
     document.getElementById('fileStatus').className='file-status error';return
   }
   checkedFiles=new Set(fileNames)
@@ -284,7 +276,7 @@ function onFolderPicked(e){
 
 function renderFileDropdown(){
   const container=document.getElementById('fileOptions')
-  if(fileNames.length===0){container.innerHTML='<div style="padding:12px;color:#888;font-size:12px;text-align:center">请先选择文件夹</div>';return}
+  if(fileNames.length===0){container.innerHTML='<div style="padding:10px;color:#888;font-size:11px;text-align:center">请先选择文件夹</div>';return}
   const allChecked=checkedFiles.size===fileNames.length
   let html=`<div class="ms-opt ms-opt-all ${allChecked?'checked':''}" onclick="UI.fileToggleAll()">
     <span class="ms-cb"></span><span class="ms-val">${allChecked?'取消全选':'全选'} (${fileNames.length})</span>
@@ -300,26 +292,25 @@ function renderFileDropdown(){
 }
 
 // ============================================================
-// UI Event Helper
+// UI Helper
 // ============================================================
 const UI={
   toggleFileDrop(){
-    document.getElementById('fileDrop').classList.toggle('open')
+    const d=document.getElementById('fileDrop');d.classList.toggle('open')
     document.getElementById('fileSelector').querySelector('.ms-trigger').classList.toggle('open')
   },
   fileToggleAll(){
     checkedFiles=checkedFiles.size===fileNames.length?new Set():new Set(fileNames)
     renderFileDropdown()
   },
-  fileToggle(name){
-    if(checkedFiles.has(name)) checkedFiles.delete(name); else checkedFiles.add(name)
+  fileToggle(nm){
+    checkedFiles.has(nm)?checkedFiles.delete(nm):checkedFiles.add(nm)
     renderFileDropdown()
   },
   toggleDrop(dropEl,triggerEl){
     document.querySelectorAll('.filter-drop').forEach(d=>{if(d!==dropEl)d.classList.remove('open')})
     document.querySelectorAll('.filter-trigger').forEach(t=>{if(t!==triggerEl)t.classList.remove('open')})
-    dropEl.classList.toggle('open')
-    triggerEl.classList.toggle('open')
+    dropEl.classList.toggle('open');triggerEl.classList.toggle('open')
     if(dropEl.classList.contains('open')){
       const inp=dropEl.querySelector('.ms-search input')
       if(inp) setTimeout(()=>inp.focus(),50)
@@ -344,38 +335,26 @@ async function refreshData(){
   try{
     const allRows=[]
     const allFilters={投放状态:new Set(),店铺:new Set(),业务组:new Set(),业务负责人:new Set(),三级分类:new Set(),广告类型:new Set()}
+
     for(let i=0;i<selectedFiles.length;i++){
-      const f=selectedFiles[i]
-      if(!checkedFiles.has(f.name)) continue
+      const f=selectedFiles[i];if(!checkedFiles.has(f.name)) continue
       const buf=await f.arrayBuffer()
       const wb=XLSX.read(buf,{type:'array'})
       const ws=wb.Sheets[wb.SheetNames[0]]
       const rows=XLSX.utils.sheet_to_json(ws,{header:1})
       for(let r=1;r<rows.length;r++){
         const row=rows[r];if(!row||!row.length) continue
-        const status=String(row[6]||'').trim()
-        const store=String(row[12]||'').trim()
-        const group=String(row[2]||'').trim()
-        const owner=String(row[3]||'').trim()
-        const cat3=String(row[4]||'').trim()
-        const adType=String(row[7]||'').trim()
+        const raw=[6,12,2,3,4,7].map(i=>String(row[i]||'').trim())
+        const status=raw[0],store=raw[1],group=raw[2],owner=raw[3],cat3=raw[4],adType=raw[5]
         const campaign=String(row[8]||'').trim()
         if(!campaign) continue
-        const spend=parseFloat(row[36])||0
-        const impressions=parseFloat(row[38])||0
-        const clicks=parseFloat(row[39])||0
-        const conversions=parseFloat(row[40])||0
-        const salesAmt=parseFloat(row[42])||0
-        const acos=parseFloat(row[34])||0
-        const promotedQty=parseFloat(row[43])||0
-        const totalQty=parseFloat(row[41])||0
-        allRows.push([status,store,group,owner,cat3,adType,campaign,spend,impressions,clicks,conversions,salesAmt,acos,promotedQty,totalQty])
-        if(status) allFilters['投放状态'].add(status)
-        if(store) allFilters['店铺'].add(store)
-        if(group) allFilters['业务组'].add(group)
-        if(owner) allFilters['业务负责人'].add(owner)
-        if(cat3) allFilters['三级分类'].add(cat3)
-        if(adType) allFilters['广告类型'].add(adType)
+        const spend=parseFloat(row[36])||0,imp=parseFloat(row[38])||0,clicks=parseFloat(row[39])||0
+        const conv=parseFloat(row[40])||0,sa=parseFloat(row[42])||0,acos=parseFloat(row[34])||0
+        const pq=parseFloat(row[43])||0,tq=parseFloat(row[41])||0
+        // Map empty values to "(无)"
+        const fv=[status||FIELD_EMPTY,store||FIELD_EMPTY,group||FIELD_EMPTY,owner||FIELD_EMPTY,cat3||FIELD_EMPTY,adType||FIELD_EMPTY]
+        allRows.push([...fv,campaign,spend,imp,clicks,conv,sa,acos,pq,tq])
+        ['投放状态','店铺','业务组','业务负责人','三级分类','广告类型'].forEach((k,i)=>allFilters[k].add(fv[i]))
       }
     }
     if(allRows.length===0){
@@ -387,19 +366,17 @@ async function refreshData(){
     D.filters={}
     Object.keys(allFilters).forEach(k=>{D.filters[k]=Array.from(allFilters[k]).sort()})
 
-    const selectedNames=fileNames.filter(n=>checkedFiles.has(n)).sort()
-    if(selectedNames.length>0){
-      const first=selectedNames[0].match(/^(\d{8})/)?.[1]
-      const last=selectedNames[selectedNames.length-1].match(/_(\d{8})/)?.[1]
-      if(first&&last){
-        const fmt=d=>`${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`
-        document.getElementById('db').textContent=`📅 ${fmt(first)} ~ ${fmt(last)} · ${allRows.length} 条记录`
-      }else document.getElementById('db').textContent=`📅 ${allRows.length} 条记录`
+    const sn=fileNames.filter(n=>checkedFiles.has(n)).sort()
+    if(sn.length>0){
+      const fst=sn[0].match(/^(\d{8})/)?.[1],lst=sn[sn.length-1].match(/_(\d{8})/)?.[1]
+      if(fst&&lst){
+        const fm=d=>`${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`
+        document.getElementById('db').textContent=`📅 ${fm(fst)} ~ ${fm(lst)} · ${allRows.length} 条`
+      }else document.getElementById('db').textContent=`📅 ${allRows.length} 条`
     }
     document.getElementById('fileStatus').textContent=`✅ ${checkedFiles.size} 个文件 · ${allRows.length} 条数据`
     document.getElementById('fileStatus').className='file-status loaded'
-    initFilters()
-    apply()
+    initFilters();apply()
     document.getElementById('dashboardContent').style.display='block'
     document.getElementById('emptyState').style.display='none'
   }catch(e){
@@ -410,15 +387,14 @@ async function refreshData(){
 }
 
 // ============================================================
-// Advanced Multi-Select Filter
+// Multi-Select Filter
 // ============================================================
 const filterStates={}
-
 function initFilters(){
   const bar=document.getElementById('filterBar')
-  const filterLabels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
+  const labels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
   bar.innerHTML=''
-  filterLabels.forEach((label,i)=>{
+  labels.forEach((label,i)=>{
     const values=D.filters[label]||[]
     filterStates[label]={selected:new Set(values),search:'',allValues:values}
     bar.innerHTML+=`<div class="fg ms-wrap filter-${i}" data-filter="${label}">
@@ -428,21 +404,19 @@ function initFilters(){
       <div class="ms-drop filter-drop" id="fd-${i}"></div>
     </div>`
   })
-  // 搜索框 and 清除按钮 — use fbar-input class for consistent styling
-  bar.innerHTML+=`<div class="fg"><label>广告活动</label><input id="fSearch" class="fbar-input" placeholder="搜索广告活动..." style="min-width:120px" oninput="apply()"></div>`
+  bar.innerHTML+=`<div class="fg"><label>广告活动</label><input id="fSearch" class="fbar-input" placeholder="搜索..." style="min-width:100px" oninput="apply()"></div>`
   bar.innerHTML+=`<button class="btn clr" onclick="clearFilters()">✕ 清除</button>`
-  filterLabels.forEach((label,i)=>{renderFilterDrop(label,i)})
+  labels.forEach((l,i)=>{renderFilterDrop(l,i)})
 }
 
 function renderFilterDrop(label,idx){
-  const st=filterStates[label]
-  const drop=document.getElementById('fd-'+idx)
-  const searchTerm=st.search.toLowerCase()
-  const filtered=st.allValues.filter(v=>v.toLowerCase().includes(searchTerm))
-  const allChecked=st.selected.size===st.allValues.length
+  const st=filterStates[label];const drop=document.getElementById('fd-'+idx)
+  const q=st.search.toLowerCase()
+  const filtered=st.allValues.filter(v=>v.toLowerCase().includes(q))
+  const allCk=st.selected.size===st.allValues.length
   let html=`<div class="ms-search"><input placeholder="搜索..." oninput="FilterUI.search('${label}','${idx}',this.value)" onclick="event.stopPropagation()"></div>`
-  html+=`<div class="ms-opt ms-opt-all ${allChecked?'checked':''}" onclick="FilterUI.toggleAll('${label}','${idx}')">
-    <span class="ms-cb"></span><span class="ms-val">${allChecked?'取消全选':'全选'} (${st.allValues.length})</span>
+  html+=`<div class="ms-opt ms-opt-all ${allCk?'checked':''}" onclick="FilterUI.toggleAll('${label}','${idx}')">
+    <span class="ms-cb"></span><span class="ms-val">${allCk?'取消全选':'全选'} (${st.allValues.length})</span>
   </div>`
   filtered.forEach(v=>{
     const ck=st.selected.has(v)
@@ -451,8 +425,7 @@ function renderFilterDrop(label,idx){
     </div>`
   })
   html+=`<div class="ms-status">点击单选 · <span>Ctrl</span>+点击多选</div>`
-  drop.innerHTML=html
-  updateFilterLabel(label,idx)
+  drop.innerHTML=html;updateFilterLabel(label,idx)
 }
 
 const FilterUI={
@@ -464,10 +437,9 @@ const FilterUI={
     renderFilterDrop(label,idx);apply()
   },
   click(e,label,idx,val){
-    e.preventDefault()
-    const st=filterStates[label]
+    e.preventDefault();const st=filterStates[label]
     if(e.ctrlKey||e.metaKey){
-      if(st.selected.has(val)) st.selected.delete(val); else st.selected.add(val)
+      st.selected.has(val)?st.selected.delete(val):st.selected.add(val)
     }else{
       if(st.selected.size===1&&st.selected.has(val)) st.selected=new Set(st.allValues)
       else st.selected=new Set([val])
@@ -493,7 +465,7 @@ function clearFilters(){
 
 document.addEventListener('click',function(e){
   if(!e.target.closest('.ms-wrap')){
-    document.querySelectorAll('.filter-drop,.fileDrop').forEach(d=>d.classList.remove('open'))
+    document.querySelectorAll('.filter-drop').forEach(d=>d.classList.remove('open'))
     document.querySelectorAll('.filter-trigger').forEach(t=>t.classList.remove('open'))
     document.getElementById('fileDrop')?.classList.remove('open')
     document.getElementById('fileSelector')?.querySelector('.ms-trigger')?.classList.remove('open')
@@ -507,14 +479,14 @@ function getFilteredData(){
   if(!D||!D.raw) return[]
   const filterLabels=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型']
   const s=document.getElementById('fSearch')
-  const searchVal=s?s.value.toLowerCase().trim():''
+  const sv=s?s.value.toLowerCase().trim():''
   return D.raw.filter(r=>{
     for(let i=0;i<6;i++){
       const st=filterStates[filterLabels[i]]
       if(!st||st.selected.size===0) return false
       if(!st.selected.has(r[i])) return false
     }
-    if(searchVal&&r[6].toLowerCase().indexOf(searchVal)===-1) return false
+    if(sv&&r[6].toLowerCase().indexOf(sv)===-1) return false
     return true
   })
 }
@@ -522,13 +494,13 @@ function getFilteredData(){
 function apply(){renderAll()}
 
 // ============================================================
-// Aggregate helpers (operates on already-filtered data)
+// Aggregate
 // ============================================================
 function aggregateBy(data,gi){
   const groups={}
   data.forEach(r=>{
     let key=String(r[gi]||'')
-    if(!key||key==='0'||key===''||key==='nan') key='未知'
+    if(!key||key==='0'||key===''||key==='nan') key=FIELD_EMPTY
     if(!groups[key]) groups[key]={sp:0,cl:0,im:0,sq:0,sa:0,cam:new Set()}
     const g=groups[key];g.sp+=r[7];g.cl+=r[9];g.im+=r[8];g.sq+=r[10];g.sa+=r[11]
     if(r[6]) g.cam.add(r[6])
@@ -542,8 +514,7 @@ function aggregateBy(data,gi){
 function aggregateByCross(data){
   const groups={}
   data.forEach(r=>{
-    const cat3=String(r[4]||'').trim()||'未知'
-    const adType=String(r[5]||'').trim()||'未知'
+    const cat3=r[4]||FIELD_EMPTY,adType=r[5]||FIELD_EMPTY
     const key=cat3+' × '+adType
     if(!groups[key]) groups[key]={sp:0,cl:0,im:0,sq:0,sa:0,cam:new Set()}
     const g=groups[key];g.sp+=r[7];g.cl+=r[9];g.im+=r[8];g.sq+=r[10];g.sa+=r[11]
@@ -556,7 +527,7 @@ function aggregateByCross(data){
 }
 
 // ============================================================
-// MAIN RENDER
+// RENDER ALL
 // ============================================================
 function renderAll(){
   if(!D||!D.raw){
@@ -567,10 +538,9 @@ function renderAll(){
   if(filtered.length===0){
     document.getElementById('kpi1').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#999">筛选结果为空</div>'
     document.getElementById('kpi2').innerHTML='';document.getElementById('acosArea').innerHTML=''
-    document.getElementById('gw_mid').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
-    document.getElementById('gw_high').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
-    document.getElementById('ow_mid').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
-    document.getElementById('ow_high').innerHTML='<div style="padding:16px;text-align:center;color:#999">无数据</div>'
+    ;['gw_mid','gw_high','ow_mid','ow_high'].forEach(id=>{
+      document.getElementById(id).innerHTML='<div style="padding:12px;text-align:center;color:#999">无数据</div>'
+    })
     ;['tbl_s','tbl_a','tbl_c','tbl_m','tbl_fd'].forEach(id=>{
       document.getElementById(id).innerHTML='<tr><td colspan="99" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>'
     });return
@@ -583,121 +553,104 @@ function renderAll(){
   const c=camps.size
   const cpc=cl>0?sp/cl:0,ctr=im>0?cl/im:0,cvr=cl>0?sq/cl:0,cpo=sq>0?sp/sq:0,acos=sa>0?sp/sa:0,roas=sp>0?sa/sp:0,dr=tq>0?pq/tq:0
 
-  // KPI Row 1: 6
+  // ===== KPI 双色方案 =====
+  // Row 1: 量级类指标 — 蓝色调
   document.getElementById('kpi1').innerHTML=[
-    {l:'广告活动数',v:FN(c),cl:'bb'},{l:'总花费',v:'$'+F(sp),cl:'br'},
-    {l:'展示量',v:FN(im),cl:'bb'},{l:'点击量',v:FN(cl),cl:'bb'},
-    {l:'转化量',v:FN(sq),cl:'bg'},{l:'销售额',v:'$'+F(sa),cl:'bg'}
-  ].map(k=>`<div class="kc ${k.cl}"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('')
+    {l:'广告活动数',v:FN(c),ac:'blue'},{l:'总花费',v:'$'+F(sp),ac:sp>100000?'red':'blue'},
+    {l:'展示量',v:FN(im),ac:'blue'},{l:'点击量',v:FN(cl),ac:'blue'},
+    {l:'转化量',v:FN(sq),ac:'blue'},{l:'销售额',v:'$'+F(sa),ac:'blue'}
+  ].map(k=>`<div class="kc"><div class="l">${k.l}</div><div class="v ${k.ac==='red'?'cr':''}">${k.v}</div></div>`).join('')
 
-  // KPI Row 2: 7
+  // Row 2: 比率类指标 — 颜色随好坏变化
   document.getElementById('kpi2').innerHTML=[
-    {l:'$CPC',v:'$'+F(cpc,4),cl:'bt'},{l:'CTR%',v:FP(ctr),cl:'bt'},
-    {l:'CVR%',v:FP(cvr),cl:'bt'},{l:'$CPO',v:'$'+F(cpo),cl:'bt'},
-    {l:'ACOS%',v:FP(acos),cl:acos>0.5?'br':acos>0.3?'bo':'bg'},
-    {l:'ROAS',v:F(roas),cl:roas<2?'br':'bg'},
-    {l:'直购率%',v:FP(dr),cl:'bp'}
-  ].map(k=>`<div class="kc ${k.cl}"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('')
+    {l:'$CPC',v:'$'+F(cpc,4),ac:cpc>1?'red':''},
+    {l:'CTR%',v:FP(ctr),ac:ctr<0.01?'red':''},
+    {l:'CVR%',v:FP(cvr),ac:cvr<0.05?'red':''},
+    {l:'$CPO',v:'$'+F(cpo),ac:cpo>30?'red':''},
+    {l:'ACOS%',v:FP(acos),ac:acos>0.5?'cr':acos>0.3?'co':'cg'},
+    {l:'ROAS',v:F(roas),ac:roas<2?'cr':'cg'},
+    {l:'直购率%',v:FP(dr),ac:dr<0.3?'red':''}
+  ].map(k=>`<div class="kc"><div class="l">${k.l}</div><div class="v ${k.ac}">${k.v}</div></div>`).join('')
 
   // ===== ACOS分段预警 =====
   renderACOS(filtered,ts)
 
-  // ===== 业务组警示 — 先根据行级 ACOS 过滤，再聚合 =====
-  const gwMidRows=filtered.filter(r=>r[12]>0.50&&r[12]<=1)
-  const gwHighRows=filtered.filter(r=>r[12]>1)
-  const gwMidAgg=aggregateBy(gwMidRows,2)
-  const gwHighAgg=aggregateBy(gwHighRows,2)
-  gwMidAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
-  gwHighAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
-  renderWarnTable('gw_mid',gwMidAgg)
-  renderWarnTable('gw_high',gwHighAgg)
+  // ===== 业务组警示 =====
+  const gwMid=aggregateBy(filtered.filter(r=>r[12]>0.50&&r[12]<=1),2)
+  const gwHigh=aggregateBy(filtered.filter(r=>r[12]>1),2)
+  gwMid.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0);gwHigh.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  renderWarn('gw_mid',gwMid);renderWarn('gw_high',gwHigh)
 
-  // ===== 业务负责人警示 — 同理 =====
-  const owMidAgg=aggregateBy(gwMidRows,3)
-  const owHighAgg=aggregateBy(gwHighRows,3)
-  owMidAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
-  owHighAgg.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
-  renderWarnTable('ow_mid',owMidAgg)
-  renderWarnTable('ow_high',owHighAgg)
+  // ===== 业务负责人警示 =====
+  const owMid=aggregateBy(filtered.filter(r=>r[12]>0.50&&r[12]<=1),3)
+  const owHigh=aggregateBy(filtered.filter(r=>r[12]>1),3)
+  owMid.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0);owHigh.forEach(g=>g.spPct=ts>0?g.sp/ts*100:0)
+  renderWarn('ow_mid',owMid);renderWarn('ow_high',owHigh)
 
-  // ===== 明细分析 =====
+  // ===== 明细 =====
   renderDet('tbl_s',aggregateBy(filtered,1),['店铺','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
   renderDet('tbl_a',aggregateBy(filtered,5),['广告类型','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
   renderDet('tbl_c',aggregateBy(filtered,4),['三级分类','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
-  renderDet('tbl_m',aggregateByCross(filtered),['三级分类×广告类型','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
+  renderDet('tbl_m',aggregateByCross(filtered),['分类×类型','活动数','花费','占总花费','点击量','$CPC','CTR%','CVR%','$CPO','ACOS%','ROAS'],['name','cam','sp','spPct','cl','cpc','ctr','cvr','cpo','acos','roas'])
   renderFullData(filtered)
 }
 
 // ============================================================
-// ACOS Segment - 4 segments
+// ACOS Segment
 // ============================================================
 function renderACOS(data,ts){
   const area=document.getElementById('acosArea');area.innerHTML=''
-  const segments=[
-    {k:'normal',mn:-Infinity,mx:0.35,lbl:'ACOS ≤ 35%',sub:'正常ACOS区间',clr:'g'},
-    {k:'caution',mn:0.35,mx:0.50,lbl:'35% < ACOS ≤ 50%',sub:'中高ACOS区间',clr:'o'},
-    {k:'high',mn:0.50,mx:1,lbl:'50% < ACOS ≤ 100%',sub:'高ACOS区间',clr:'r'},
-    {k:'super',mn:1,mx:Infinity,lbl:'ACOS > 100%',sub:'超高ACOS区间',clr:'p'},
+  const segs=[
+    {k:'n',mx:0.35,lbl:'ACOS ≤ 35%',sub:'正常ACOS区间',cl:'g'},
+    {k:'c',mn:0.35,mx:0.50,lbl:'35% < ACOS ≤ 50%',sub:'中高ACOS区间',cl:'o'},
+    {k:'h',mn:0.50,mx:1,lbl:'50% < ACOS ≤ 100%',sub:'高ACOS区间',cl:'r'},
+    {k:'s',mn:1,mx:Infinity,lbl:'ACOS > 100%',sub:'超高ACOS区间',cl:'p'},
   ]
-  const bgMap={g:'#e8f5e9',o:'#fff3e0',r:'#fce4ec',p:'#f3e5f5'}
-  const bdMap={g:'#4caf50',o:'#ff9800',r:'#f44336',p:'#9c27b0'}
-  const tagMap={g:'g',o:'o',r:'r',p:'p'}
-
-  segments.forEach(seg=>{
-    let sub=[]
-    if(seg.k==='normal') sub=data.filter(r=>r[12]<=seg.mx)
-    else if(seg.k==='super') sub=data.filter(r=>r[12]>seg.mn)
+  const bg={g:'#e8f5e9',o:'#fff3e0',r:'#fce4ec',p:'#f3e5f5'},bd={g:'#4caf50',o:'#ff9800',r:'#f44336',p:'#9c27b0'}
+  const tg={g:'g',o:'o',r:'r',p:'p'}
+  segs.forEach(seg=>{
+    let sub
+    if(seg.k==='n') sub=data.filter(r=>r[12]<=seg.mx)
+    else if(seg.k==='s') sub=data.filter(r=>r[12]>seg.mn)
     else sub=data.filter(r=>r[12]>seg.mn&&r[12]<=seg.mx)
     if(!sub.length) return
-
-    const camps=new Set(sub.map(r=>r[6]))
-    const sp=sub.reduce((s,r)=>s+r[7],0)
-    const im=sub.reduce((s,r)=>s+r[8],0)
-    const cl=sub.reduce((s,r)=>s+r[9],0)
-    const sq=sub.reduce((s,r)=>s+r[10],0)
-    const sa=sub.reduce((s,r)=>s+r[11],0)
-    const pq=sub.reduce((s,r)=>s+r[13],0)
-    const tq=sub.reduce((s,r)=>s+r[14],0)
-    const pct=ts>0?sp/ts*100:0
-    const cpc=cl>0?sp/cl:0,ctr=im>0?cl/im:0,cvr=cl>0?sq/cl:0,cpo=sq>0?sp/sq:0,acos=sa>0?sp/sa:0,roas=sp>0?sa/sp:0,dr=tq>0?pq/tq:0
-    const clr=seg.clr
-    const tag=tagMap[clr]||'g'
-
-    const wrap=document.createElement('div');wrap.className='as'
-    const summaryHTML=
-      `<div class="t"><span>${seg.lbl}</span><span style="font-size:12px;font-weight:400;color:#888;margin-left:4px">${seg.sub}</span><span class="wt ${tag}" style="margin-left:8px">${camps.size} CAM · $${F(sp)}</span></div>`+
-      `<div class="st">`+
-      `<div class="si"><div class="sl">占比</div><div class="sv">${F(pct)}%</div></div>`+
-      `<div class="si"><div class="sl">点击量</div><div class="sv">${FNn(cl)}</div></div>`+
-      `<div class="si"><div class="sl">$CPC</div><div class="sv">$${F(cpc,4)}</div></div>`+
-      `<div class="si"><div class="sl">CTR</div><div class="sv">${FP(ctr)}</div></div>`+
-      `<div class="si"><div class="sl">CVR</div><div class="sv">${FP(cvr)}</div></div>`+
-      `<div class="si"><div class="sl">$CPO</div><div class="sv">$${F(cpo)}</div></div>`+
-      `<div class="si"><div class="sl">ACOS</div><div class="sv" style="color:${acosColor(acos)}">${FP(acos)}</div></div>`+
-      `<div class="si"><div class="sl">ROAS</div><div class="sv">${F(roas)}</div></div>`+
-      `<span class="ar">▸</span></div>`
-    wrap.innerHTML=`<div class="ah" style="background:${bgMap[clr]}10;border-left:4px solid ${bdMap[clr]}">${summaryHTML}</div>`+
-      `<div class="ab"><div class="tw"><table><thead><tr>`+
-      `<th>广告活动</th><th class="num">花费</th><th class="num">点击量</th><th class="num">$CPC</th><th class="num">CTR%</th><th class="num">$CPO</th><th class="num">ACOS%</th><th class="num">直购率%</th>`+
-      `</tr></thead><tbody></tbody></table></div></div>`
-    area.appendChild(wrap)
-
-    wrap.querySelector('.ah').addEventListener('click',function(){
-      const bd=this.nextElementSibling;bd.classList.toggle('open')
+    const cam=new Set(sub.map(r=>r[6]))
+    const sp=sub.reduce((s,r)=>s+r[7],0),im=sub.reduce((s,r)=>s+r[8],0),cl=sub.reduce((s,r)=>s+r[9],0)
+    const sq=sub.reduce((s,r)=>s+r[10],0),sa=sub.reduce((s,r)=>s+r[11],0),pq=sub.reduce((s,r)=>s+r[13],0),tq=sub.reduce((s,r)=>s+r[14],0)
+    const pct=ts>0?sp/ts*100:0,cpc=cl>0?sp/cl:0,ctr=im>0?cl/im:0,cvr=cl>0?sq/cl:0,cpo=sq>0?sp/sq:0,acos=sa>0?sp/sa:0,roas=sp>0?sa/sp:0,dr=tq>0?pq/tq:0
+    const c=seg.cl,tg2=tg[c]||'g'
+    const w=document.createElement('div');w.className='as'
+    w.innerHTML=`<div class="ah" style="background:${bg[c]}10;border-left:4px solid ${bd[c]}">
+      <div class="t"><span>${seg.lbl}</span><span style="font-size:11px;font-weight:400;color:#888">${seg.sub}</span><span class="wt ${tg2}" style="margin-left:6px">${cam.size} CAM · $${F(sp)}</span></div>
+      <div class="st"><div class="si"><div class="sl">占比</div><div class="sv">${F(pct)}%</div></div>
+      <div class="si"><div class="sl">点击量</div><div class="sv">${FNn(cl)}</div></div>
+      <div class="si"><div class="sl">$CPC</div><div class="sv">$${F(cpc,4)}</div></div>
+      <div class="si"><div class="sl">CTR</div><div class="sv">${FP(ctr)}</div></div>
+      <div class="si"><div class="sl">CVR</div><div class="sv">${FP(cvr)}</div></div>
+      <div class="si"><div class="sl">$CPO</div><div class="sv">$${F(cpo)}</div></div>
+      <div class="si"><div class="sl">ACOS</div><div class="sv" style="color:${acosColor(acos)}">${FP(acos)}</div></div>
+      <div class="si"><div class="sl">ROAS</div><div class="sv">${F(roas)}</div></div>
+      <span class="ar">▸</span></div>
+    </div><div class="ab"><div class="tw"><table><thead><tr>
+      <th>广告活动</th><th class="num">花费</th><th class="num">点击量</th><th class="num">$CPC</th><th class="num">CTR%</th><th class="num">$CPO</th><th class="num">ACOS%</th><th class="num">直购率%</th>
+    </tr></thead><tbody></tbody></table></div></div>`
+    area.appendChild(w)
+    w.querySelector('.ah').addEventListener('click',function(){
+      const bd2=this.nextElementSibling;bd2.classList.toggle('open')
       this.querySelector('.ar').classList.toggle('open')
-      if(bd.classList.contains('open')&&!bd.dataset.rendered){
+      if(bd2.classList.contains('open')&&!bd2.dataset.r){
         const cm={};sub.forEach(r=>{
           const n=r[6]||'未知'
           if(!cm[n]) cm[n]={sp:0,cl:0,im:0,sq:0,sa:0,pq:0,tq:0}
           cm[n].sp+=r[7];cm[n].cl+=r[9];cm[n].im+=r[8];cm[n].sq+=r[10];cm[n].sa+=r[11];cm[n].pq+=r[13];cm[n].tq+=r[14]
         })
         const arr=Object.keys(cm).sort((a,b)=>cm[b].sp-cm[a].sp).slice(0,50)
-        const tbody=bd.querySelector('tbody')
-        tbody.innerHTML=arr.map(n=>{
-          const c=cm[n];const cp=c.cl>0?c.sp/c.cl:0;const ct=c.im>0?c.cl/c.im:0;const ac=c.sa>0?c.sp/c.sa:0;const cpo=c.sq>0?c.sp/c.sq:0;const dr=c.tq>0?c.pq/c.tq:0
-          return `<tr><td>${n}</td><td class="num">$${F(c.sp)}</td><td class="num">${FNn(c.cl)}</td><td class="num">$${F(cp,4)}</td><td class="num">${FP(ct)}</td><td class="num">$${F(cpo)}</td><td class="num" style="font-weight:700;color:${acosColor(ac)}">${FP(ac)}</td><td class="num">${FP(dr)}</td></tr>`
+        const tb=bd2.querySelector('tbody')
+        tb.innerHTML=arr.map(n=>{
+          const c2=cm[n];const cp=c2.cl>0?c2.sp/c2.cl:0,ct=c2.im>0?c2.cl/c2.im:0,ac=c2.sa>0?c2.sp/c2.sa:0,cp2=c2.sq>0?c2.sp/c2.sq:0,dr2=c2.tq>0?c2.pq/c2.tq:0
+          return `<tr><td>${n}</td><td class="num">$${F(c2.sp)}</td><td class="num">${FNn(c2.cl)}</td><td class="num">$${F(cp,4)}</td><td class="num">${FP(ct)}</td><td class="num">$${F(cp2)}</td><td class="num" style="font-weight:700;color:${acosColor(ac)}">${FP(ac)}</td><td class="num">${FP(dr2)}</td></tr>`
         }).join('')
-        bd.dataset.rendered='1'
+        bd2.dataset.r='1'
       }
     })
   })
@@ -706,20 +659,18 @@ function renderACOS(data,ts){
 // ============================================================
 // Warning Table
 // ============================================================
-function renderWarnTable(cid,data){
+function renderWarn(cid,data){
   const con=document.getElementById(cid);con.innerHTML=''
-  if(!data||!data.length){
-    con.innerHTML=`<div style="padding:12px;text-align:center;color:#999">全部合格 ✓</div>`;return
-  }
+  if(!data||!data.length){con.innerHTML='<div style="padding:10px;text-align:center;color:#999">全部合格 ✓</div>';return}
   const maxSp=Math.max(...data.map(x=>x.sp),1)
-  let html='<table><thead><tr><th>名称</th><th class="num">活动数</th><th class="num">花费</th><th class="num">占总花费</th><th class="num">点击量</th><th class="num">$CPC</th><th class="num">CTR%</th><th class="num">CVR%</th><th class="num">$CPO</th><th class="num">ACOS%</th><th class="num">ROAS</th></tr></thead><tbody>'
+  let html='<table><thead><tr><th>名称</th><th class="num">活动数</th><th class="num">花费</th><th class="num">占比</th><th class="num">点击量</th><th class="num">$CPC</th><th class="num">CTR%</th><th class="num">CVR%</th><th class="num">$CPO</th><th class="num">ACOS%</th><th class="num">ROAS</th></tr></thead><tbody>'
   data.forEach(r=>{
-    const pctColor=r.spPct>20?'r':r.spPct>10?'o':'b'
+    const pc=r.spPct>20?'r':r.spPct>10?'o':'b'
     html+=`<tr class="${r.acos>1?'row-super':r.acos>0.7?'row-high':''}">
       <td style="font-weight:600">${r.name}</td>
       <td class="num">${FNn(r.cam)}</td>
-      <td class="num" style="background:linear-gradient(90deg,rgba(233,69,96,${Math.min(r.sp/maxSp*0.12,0.12)}) 0%,transparent ${Math.min(r.sp/maxSp*100,100)}%)">$${F(r.sp)}</td>
-      <td class="num"><span class="bar"><span class="bg"><span class="bf ${pctColor}" style="width:${Math.min(r.spPct,100)}%"></span></span><span class="pv">${F(r.spPct)}%</span></span></td>
+      <td class="num" style="background:linear-gradient(90deg,rgba(233,69,96,${Math.min(r.sp/maxSp*0.1,0.1)}) 0%,transparent ${Math.min(r.sp/maxSp*100,100)}%)">$${F(r.sp)}</td>
+      <td class="num"><span class="bar"><span class="bg"><span class="bf ${pc}" style="width:${Math.min(r.spPct,100)}%"></span></span><span class="pv">${F(r.spPct)}%</span></span></td>
       <td class="num">${FNn(r.cl)}</td>
       <td class="num">$${F(r.cpc,4)}</td>
       <td class="num" style="color:${goodColor(r.ctr,0,Math.max(...data.map(x=>x.ctr),0.01))}">${FP(r.ctr)}</td>
@@ -737,31 +688,25 @@ function renderWarnTable(cid,data){
 // ============================================================
 function renderDet(id,data,headers,fields){
   const tbl=document.getElementById(id);tbl.innerHTML=''
-  if(!data||!data.length){tbl.innerHTML='<tr><td colspan="'+headers.length+'" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>';return}
+  if(!data||!data.length){tbl.innerHTML='<tr><td colspan="'+headers.length+'" style="text-align:center;color:#999;padding:14px;">无数据</td></tr>';return}
   const sumSp=data.reduce((s,r)=>s+r.sp,0)
-  const rowsWithPct=data.map(r=>({...r,spPct:sumSp>0?r.sp/sumSp*100:0}))
+  const rows=data.map(r=>({...r,spPct:sumSp>0?r.sp/sumSp*100:0}))
   let h='<thead><tr>'+headers.map((h2,i)=>{
-    const numFields=['cam','sp','im','cl','sq','cpc','ctr','cvr','cpo','acos','roas','dr']
-    return '<th'+(numFields.includes(fields[i])?' class="num"':'')+'>'+h2+'</th>'
+    return '<th'+(['cam','sp','im','cl','sq','cpc','ctr','cvr','cpo','acos','roas','dr'].includes(fields[i])?' class="num"':'')+'>'+h2+'</th>'
   }).join('')+'</tr></thead><tbody>'
   const fmts={cam:FNn,sp:v=>'$'+F(v),im:FNn,cl:FNn,sq:FNn,cpc:v=>'$'+F(v,4),ctr:FPn,cvr:FPn,cpo:v=>'$'+F(v),acos:FPn,roas:F,dr:FPn,spPct:v=>F(v)+'%'}
-  const maxVals={};fields.forEach(f=>{
-    if(data.length&&['cam','sp','im','cl','sq','cpc','cpo'].includes(f))
-      maxVals[f]=Math.max(...data.map(r=>Math.abs(Number(r[f])||0)),0.001)
-  })
-  rowsWithPct.forEach((r,i)=>{
+  const maxV={};fields.forEach(f=>{if(['cam','sp','im','cl','sq','cpc','cpo'].includes(f))maxV[f]=Math.max(...data.map(r=>Math.abs(Number(r[f])||0)),0.001)})
+  rows.forEach((r,i)=>{
     h+='<tr'+(i%2===1?' style="background:#fafbfc"':'')+'>'
     fields.forEach(f=>{
-      const raw=Number(r[f])||0
-      const val=fmts[f]?fmts[f](r[f]):(r[f]||'-')
+      const raw=Number(r[f])||0;const val=fmts[f]?fmts[f](r[f]):(r[f]||'-')
       const isNum=['cam','sp','im','cl','sq','cpc','ctr','cvr','cpo','acos','roas','dr'].includes(f)
-      let style=''
-      if(f==='acos')style='color:'+acosColor(raw)+';font-weight:700'
-      else if(f==='ctr'||f==='cvr'||f==='dr')style='color:'+goodColor(raw,0,maxVals['sp']*2)+';font-weight:500'
-      else if(f==='roas')style='font-weight:600'
-      else if(['cam','sp','im','cl','sq'].includes(f)&&raw>0)
-        style='background:linear-gradient(90deg,rgba(233,69,96,0.06) 0%,rgba(233,69,96,0.06) '+(raw/maxVals[f]*50)+'%,transparent '+(raw/maxVals[f]*50+10)+'%)'
-      h+='<td'+(isNum?' class="num"':'')+' style="'+style+'">'+val+'</td>'
+      let s=''
+      if(f==='acos')s='color:'+acosColor(raw)+';font-weight:700'
+      else if(f==='ctr'||f==='cvr'||f==='dr')s='color:'+goodColor(raw,0,maxV['sp']*2)+';font-weight:500'
+      else if(f==='roas')s='font-weight:600'
+      else if(['cam','sp','im','cl','sq'].includes(f)&&raw>0)s='background:linear-gradient(90deg,rgba(233,69,96,0.05) 0%,rgba(233,69,96,0.05) '+(raw/maxV[f]*50)+'%,transparent '+(raw/maxV[f]*50+10)+'%)'
+      h+='<td'+(isNum?' class="num"':'')+' style="'+s+'">'+val+'</td>'
     })
     h+='</tr>'
   })
@@ -769,26 +714,25 @@ function renderDet(id,data,headers,fields){
 }
 
 // ============================================================
-// Full Data Table
+// Full Data
 // ============================================================
 function renderFullData(data){
   const tbl=document.getElementById('tbl_fd')
   const sorted=[...data].sort((a,b)=>b[7]-a[7]).slice(0,500)
-  if(!sorted.length){tbl.innerHTML='<tr><td colspan="16" style="text-align:center;color:#999;padding:16px;">无数据</td></tr>';return}
-  const headers=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型','广告活动','花费','展示量','点击量','转化量','销售额','ACOS%','推广商品销量','总销量','直购率%']
-  let html='<thead><tr>'+headers.map((h,i)=>'<th'+(i>=7?' class="num"':'')+'>'+h+'</th>').join('')+'</tr></thead><tbody>'
+  if(!sorted.length){tbl.innerHTML='<tr><td colspan="16" style="text-align:center;color:#999;padding:14px;">无数据</td></tr>';return}
+  const H=['投放状态','店铺','业务组','业务负责人','三级分类','广告类型','广告活动','花费','展示量','点击量','转化量','销售额','ACOS%','推广商品销量','总销量','直购率%']
+  let h='<thead><tr>'+H.map((h2,i)=>'<th'+(i>=7?' class="num"':'')+'>'+h2+'</th>').join('')+'</tr></thead><tbody>'
   sorted.forEach((r,i)=>{
     const dr=r[14]>0?r[13]/r[14]:0
-    html+='<tr'+(i%2===1?' style="background:#fafbfc"':'')+'>'
-    for(let j=0;j<7;j++) html+='<td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">'+(r[j]||'-')+'</td>'
-    html+=`<td class="num">$${F(r[7])}</td><td class="num">${FN(r[8])}</td><td class="num">${FN(r[9])}</td>`
-    html+=`<td class="num">${FN(r[10])}</td><td class="num">$${F(r[11])}</td>`
-    html+=`<td class="num" style="font-weight:700;color:${acosColor(r[12])}">${FP(r[12])}</td>`
-    html+=`<td class="num">${FN(r[13])}</td><td class="num">${FN(r[14])}</td>`
-    html+=`<td class="num" style="color:${goodColor(dr,0,1)}">${FP(dr)}</td>`
-    html+='</tr>'
+    h+='<tr'+(i%2===1?' style="background:#fafbfc"':'')+'>'
+    for(let j=0;j<7;j++) h+='<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis">'+(r[j]||'-')+'</td>'
+    h+=`<td class="num">$${F(r[7])}</td><td class="num">${FN(r[8])}</td><td class="num">${FN(r[9])}</td>`
+    h+=`<td class="num">${FN(r[10])}</td><td class="num">$${F(r[11])}</td>`
+    h+=`<td class="num" style="font-weight:700;color:${acosColor(r[12])}">${FP(r[12])}</td>`
+    h+=`<td class="num">${FN(r[13])}</td><td class="num">${FN(r[14])}</td>`
+    h+=`<td class="num" style="color:${goodColor(dr,0,1)}">${FP(dr)}</td></tr>`
   })
-  html+='</tbody>';tbl.innerHTML=html
+  h+='</tbody>';tbl.innerHTML=h
 }
 
 // ============================================================
